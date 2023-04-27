@@ -217,7 +217,7 @@ class Model(nn.Module):
 
     def __init__(self, feature_length):
         super().__init__()
-        self.d_hidden = 256
+        self.d_hidden = 512
         self.d_embed = 72
         self.embed = nn.Embedding(feature_length, self.d_embed)
         self.encoder = torch.nn.TransformerEncoderLayer(d_model=self.d_embed, nhead=6,
@@ -469,9 +469,9 @@ def main(args):
         kf = KFold(n_splits=args.val_ratio, shuffle=True, random_state=args.seed)
         dummy_file = [1 for _ in open(join(args.data_dir, args.source_name), encoding='utf-8')]
 
-        _BATCH_SIZE = 64
+        _BATCH_SIZE = 256
         _LR = args.lr
-        _EPOCH = 1024
+        _EPOCH = 1600
 
         split = kf.split(dummy_file)
         train_index, test_index = next(split)
